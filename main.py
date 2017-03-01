@@ -1,13 +1,17 @@
 import inspect
-import comp
+import controllers
+import pkgutil
+import importlib
 
 
 class Rpc(object):
     def __init__(self):
         self.test_parent_property = 'dsfdsf'
-        for _, cls in inspect.getmembers(comp, inspect.isclass):
-            if cls.method is not None:
-                setattr(self, cls.method, cls(self))
+        for module_loader, name, ispkg in pkgutil.iter_modules(controllers.__path__):
+            for _, cls in inspect.getmembers(importlib.import_module('controllers' + '.' + name, __package__),
+                                             inspect.isclass):
+                if cls.method is not None:
+                    setattr(self, cls.method, cls(self))
 
     def test_parent_method(self, a=None):
         if a:
