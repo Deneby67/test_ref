@@ -12,10 +12,10 @@ class Base(object):
 
 
 class Component(Base):
+    method = 'test'
+
     def start(self, a):
         print(a)
-
-    method = 'test'
 
 
 class One(Base):
@@ -27,7 +27,7 @@ class One(Base):
 
 
 class Two(Base):
+    method = 'two'
+
     def start(self, *args, **kwargs):
         print(self.service.test_parent_property)
-
-    method = 'two'
